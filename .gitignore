@@ -130,7 +130,7 @@ dmypy.json
 
 # DB Files
 db.sqlite3
-.postgres-data/
+pg-data/
 
 # MacOS
 .idea/

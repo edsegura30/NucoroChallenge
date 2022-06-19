@@ -9,9 +9,12 @@ from django.core.asgi import get_asgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'currencies.settings')
 
+
+django_asgi_application = get_asgi_application()
+
 application = ProtocolTypeRouter(
     {
         # We can add more protocols here, but for the scope HTTP works just fine
-        "http": get_asgi_application(),
+        "http": django_asgi_application,
     }
 )

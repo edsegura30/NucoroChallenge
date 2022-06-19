@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,6 +67,9 @@ TEMPLATES = [
         },
     },
 ]
+
+# Channels: ASGI object location
+ASGI_APPLICATION = 'currencies.asgi.application'
 
 WSGI_APPLICATION = 'currencies.wsgi.application'
 

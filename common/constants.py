@@ -8,5 +8,5 @@ class TextFieldLengths:
 
 
 class APIVersions:
-    V1: 'v1'
-    V2: 'v2'
+    V1 = 'v1'
+    V2 = 'v2'

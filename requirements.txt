@@ -3,6 +3,7 @@ attrs==21.4.0
 autobahn==22.5.1
 Automat==20.2.0
 cffi==1.15.0
+channels==3.0.4
 constantly==15.1.0
 cryptography==37.0.2
 daphne==3.0.2
@@ -11,6 +12,7 @@ djangorestframework==3.13.1
 hyperlink==21.0.0
 idna==3.3
 incremental==21.3.0
+psycopg2-binary==2.9.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.21

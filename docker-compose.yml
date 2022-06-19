@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  db:
+    container_name: db
+    env_file:
+      - env/local.env
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    depends_on:
+      - db
+    env_file:
+      - env/local.env
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    volumes:
+      - .:/app

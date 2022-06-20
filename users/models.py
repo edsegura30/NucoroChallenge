@@ -5,9 +5,6 @@ from typing import cast, Any, Dict, Iterable, Optional
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 
-# Internal imports
-from common.constants import TextFieldLengths
-
 
 class UserManager(BaseUserManager):
     def create_user(
@@ -39,15 +36,24 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email: str, password: str, *args, **kwargs):
         """Creates user with access to back office panel and all permissions."""
-        return self.create_user(email, password, is_staff=True, is_superuser=True, *args, **kwargs)
+        return self.create_user(
+            email,
+            password,
+            is_staff=True,
+            is_superuser=True,
+            *args,
+            **kwargs,
+        )
 
 
 class User(AbstractBaseUser):
+    """Currency Exchange API custom user model."""
+
     USERNAME_FIELD = 'email'
 
     email = models.EmailField(primary_key=True, unique=True)
-    first_name = models.CharField(blank=True, max_length=TextFieldLengths.DEFAULT)
-    last_name = models.CharField(blank=True, max_length=TextFieldLengths.DEFAULT)
+    first_name = models.CharField(blank=True, max_length=100)
+    last_name = models.CharField(blank=True, max_length=100)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

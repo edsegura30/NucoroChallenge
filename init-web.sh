@@ -38,6 +38,6 @@ if [ $ENVIRONMENT_NAME == "local" ]; then
 else
   if [ $ENVIRONMENT_NAME == "production" ]; then
     echo "Using Production Server"
-    daphne -p 8001 currency_exchanger.asgi:application
+    daphne -b 0.0.0.0 -p 8001 currency_exchanger.asgi:application
   fi
 fi

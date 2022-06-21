@@ -2,22 +2,23 @@
 from typing import cast, Any, Dict, Iterable, Optional
 
 # Pip imports
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser, BaseUserManager, PermissionsMixin
+)
 from django.db import models
 
 
 class UserManager(BaseUserManager):
-    def create_user(
-        self,
-        email: str,
-        password: Optional[str] = None,
-        is_active: bool = True,
-        is_staff: bool = False,
-        is_superuser: bool = False,
-        *args: Iterable,
-        **kwargs: Dict,
-    ) -> Any:
-        """Creates regular user."""
+    def create_user(self,
+        email,
+        password = None,
+        is_active = True,
+        is_staff = False,
+        is_superuser = False,
+        *args,
+        **kwargs,
+    ):
+        """Creates User instance."""
         email = UserManager.normalize_email(email)
         user = self.model(
             email=email,
@@ -35,7 +36,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email: str, password: str, *args, **kwargs):
-        """Creates user with access to back office panel and all permissions."""
+        """Creates User with `is_staff` and `is_superuser` flags."""
         return self.create_user(
             email,
             password,
@@ -46,8 +47,7 @@ class UserManager(BaseUserManager):
         )
 
 
-class User(AbstractBaseUser):
-    """Currency Exchange API custom user model."""
+class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
@@ -63,8 +63,10 @@ class User(AbstractBaseUser):
     class Meta:
         verbose_name = 'User'
 
-    def __str__(self) -> str:
-        if self.first_name:
-            return f'{self.first_name}: {self.email}'
+    def __str__(self):
+        return self.email
 
-        return cast(str, self.email)
+    @property
+    def full_name(self):
+        if self.first_name and self.last_name:
+            return f'{self.first_name} {self.last_name}'
